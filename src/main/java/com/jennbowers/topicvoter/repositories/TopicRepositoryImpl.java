@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+
+//ALL STUFF THAT TALKS TO DB GOES HERE
 @Repository
 public class TopicRepositoryImpl implements TopicRepository{
 
@@ -19,6 +21,11 @@ public class TopicRepositoryImpl implements TopicRepository{
 
     public List<Topic> findAll() {
         return jdbcTemplate.query("SELECT * FROM topic", new TopicMapper());
+    }
+
+    @Override
+    public void add(String title, String description) {
+        jdbcTemplate.update("INSERT INTO topic (title, description) values(?, ?)", title, description);
     }
 
     private static class TopicMapper implements RowMapper<Topic> {
