@@ -16,6 +16,7 @@ import java.util.List;
 @Repository
 public class TopicRepositoryImpl implements TopicRepository{
 
+//    allows the repository to link up to the DB
     @Autowired
     JdbcTemplate jdbcTemplate;
 
@@ -28,9 +29,14 @@ public class TopicRepositoryImpl implements TopicRepository{
         jdbcTemplate.update("INSERT INTO topic (title, description) values(?, ?)", title, description);
     }
 
+    @Override
+    public void delete(long id) {
+        jdbcTemplate.update("DELETE FROM topic WHERE id = ?", id);
+    }
+
+//        so this says that for every row that comes back we want to do something
     private static class TopicMapper implements RowMapper<Topic> {
 //        resultset is what comes back from a jdbc query
-//        so this says that for every row that comes back we want to do something
         @Override
         public Topic mapRow(ResultSet resultSet, int i) throws SQLException {
             Topic topic = new Topic(resultSet.getInt("id"),
@@ -38,6 +44,7 @@ public class TopicRepositoryImpl implements TopicRepository{
                                     resultSet.getString("description"));
             return topic;
         }
+
     }
 
 

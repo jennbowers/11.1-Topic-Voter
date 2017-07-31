@@ -18,6 +18,11 @@
             <span th:text="${topic.title}"></span>
             :
             <span th:text="${topic.description}"></span>
+
+            <form action="/deleteTopic" method="post">
+                <input type="hidden" th:value="${topic.id}" name="id"/>
+                <input type="submit" value="X"/>
+            </form>
         </li>
     </ul>
 </body>

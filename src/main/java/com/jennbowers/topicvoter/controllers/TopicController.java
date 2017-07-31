@@ -15,6 +15,7 @@ import java.util.List;
 @Controller
 public class TopicController {
 
+//    This allows the controller to access the repository!! SO NICE
     @Autowired
     private TopicRepositoryImpl repo;
 
@@ -29,6 +30,12 @@ public class TopicController {
     public String createTopic(@RequestParam("title") String title,
                               @RequestParam("description") String description) {
         repo.add(title, description);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/deleteTopic", method = RequestMethod.POST)
+    public String deleteTopic(@RequestParam ("id") long id) {
+        repo.delete(id);
         return "redirect:/";
     }
 }
